@@ -79,6 +79,7 @@
             <configuration>
               <target>
                 <exec executable="${antCmd}${antCmdExt}" dir="${project.basedir}" failonerror="true">
+                  <env key="CLASSPATH" value="src/main/lib/icu4j.jar"/>
                   <arg line="jar jar.plug-ins" />
                 </exec>
               </target>
