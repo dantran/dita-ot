@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
+  <groupId>io.dita-ot</groupId>
+  <artifactId>dita-ot</artifactId>
+  <packaging>pom</packaging>
+  <version>1.8-SNAPSHOT</version>
+  <name>dita-ot</name>
+  <description>dita-ot</description>
+  <url>http://dita-ot.io/</url>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git@github.com:dita-ot/dita-ot.git</connection>
+    <developerConnection>scm:git:git@github.com:dita-ot/dita-ot.git</developerConnection>
+    <url>git@github.com:dita-ot/dita-ot.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>oss-sonatype-staging</id>
+      <name>Sonatype Staging Repository</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>oss-sonatype-snapshots</id>
+      <name>OSS Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <prerequisites>
+    <maven>3.0.5</maven>
+  </prerequisites>
+
+  <properties>
+    <ant.version>1.9.2</ant.version>
+    <antCmd>${project.basedir}/.external-resources/apache-ant-${ant.version}/bin/ant</antCmd>
+    <antCmdExt/>
+  </properties>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.7</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>build-dost.jar</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <exec executable="${antCmd}${antCmdExt}" dir="${project.basedir}" failonerror="true">
+                  <arg line="jar jar.plug-ins" />
+                </exec>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    
+  </build>
+  
+  <profiles>
+    <profile>
+      <id>windows</id>
+      <activation>
+        <os>
+          <family>Windows</family>
+        </os>
+      </activation>
+      <properties>
+        <antCmdExt>.bat</antCmdExt>
+      </properties>
+    </profile>
+  </profiles>
+
+</project>
