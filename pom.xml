@@ -59,7 +59,7 @@
 
     <plugins>
       <plugin>
-        <artifactId>org.apache.maven.plugins</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>1.7</version>
         <executions>
