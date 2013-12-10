@@ -61,7 +61,6 @@
       <plugins>
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
-          <version>1.7</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -69,6 +68,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
         <executions>
           <execution>
             <id>build-dost.jar</id>
@@ -95,6 +95,29 @@
           </execution>
         </executions>
       </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>attach-artifact</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>${project.build.directory}/dist/DITA-OT2.0.M1_minimal_bin.zip</file> <!--hardcode for demo for now -->
+                  <type>zip</type>
+                  <classifier>minimal</classifier>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
     </plugins>
     
   </build>
